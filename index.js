@@ -5,8 +5,17 @@ import path from "path";
 import dbconfig from "./src/config/dbconfig.js";
 import { fileURLToPath } from "url";
 import indexRoutes from "./src/routes/index.js";
+import timeout from "connect-timeout";
 
 const app = express();
+
+// Middleware Timeout (misalnya, 10 detik)
+app.use(timeout("10s"));
+
+// Middleware untuk menangani timeout
+app.use((req, res, next) => {
+  if (!req.timedout) next();
+});
 
 // Get __dirname in ES6
 const __filename = fileURLToPath(import.meta.url);
@@ -17,12 +26,13 @@ mongoose.set("strictQuery", false);
 mongoose.connect(dbconfig.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000, // Timeout socket (45 detik)
 })
   .then(() => console.log("Berhasil terhubung ke database"))
   .catch((err) => console.error("Gagal terhubung ke database", err));
 
 // Middleware
-// app.use(express.static(path.join(__dirname, "./assets")));
 app.use('/assets', express.static(path.join(__dirname, './src/assets')));
 
 app.use(cors());

@@ -14,7 +14,7 @@ router.use("/api/v1/menu", menuRoutes);
 router.use("/api/v1/book", bookRoutes);
 
 router.get("/", (req, res) => {
-  res.json("Welcome in book server");
+  res.json("Welcome in my server");
 });
 
 export default router;
