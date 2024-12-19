@@ -35,7 +35,9 @@ mongoose.connect(dbconfig.MONGO_URL, {
 // Middleware
 app.use('/assets', express.static(path.join(__dirname, './src/assets')));
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000"
+}));
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 
