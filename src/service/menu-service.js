@@ -46,6 +46,7 @@ const getAll = async (page = 1, limit = 10) => {
 
 
 const getByIdKategori = async (id) => {
+  console.log('idservice', id);
   return await menuModel.aggregate([
     {
       $match: {
@@ -62,6 +63,14 @@ const getByIdKategori = async (id) => {
     },
     {
       $unwind: { path: "$category" }
+    },
+    {
+      $project: {
+        _id: 0,
+        "category._id": 0,
+        __v: 0,
+        "category.__v": 0,
+      },
     },
   ])
 }

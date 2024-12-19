@@ -17,6 +17,7 @@ const create = async (req, res) => {
   }
 };
 
+// Get all data
 const getAll = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -28,17 +29,7 @@ const getAll = async (req, res) => {
   }
 };
 
-const getByIdKategori = async (req, res) => {
-  try {
-    const data = await menuService.getByIdKategori({ IDKategori: req.params.id_kategori })
-    if (!data) {
-      return res.json(requestResponse.gagal("Data tidak ditemukan"))
-    }
-    res.json(requestResponse.suksesWithData(data))
-  } catch (error) {
-    res.json(requestResponse.kesalahan)
-  }
-}
+// Get data by id
 const getById = async (req, res) => {
   try {
     const data = await menuService.getById({ id: req.params.id })
@@ -51,6 +42,20 @@ const getById = async (req, res) => {
     res.json(requestResponse.kesalahan)
   }
 }
+// get menu by category
+const getByIdKategori = async (req, res) => {
+  try {
+    const data = await menuService.getByIdKategori(req.params.id);
+    if (!data) {
+      return res.json(requestResponse.gagal("Data tidak ditemukan"));
+    }
+    res.json(requestResponse.suksesWithData(data));
+  } catch (error) {
+    console.log('error', error);
+    res.status(500).json(requestResponse.kesalahan);
+  }
+}
+
 // Update data
 const updateOne = async (req, res) => {
   try {
@@ -63,7 +68,6 @@ const updateOne = async (req, res) => {
     res.status(500).json(requestResponse.kesalahan);
   }
 };
-
 
 // Delete data
 const deleteOne = async (req, res) => {
