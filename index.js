@@ -26,8 +26,8 @@ mongoose.set("strictQuery", false);
 mongoose.connect(dbconfig.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000,
-  socketTimeoutMS: 45000, // Timeout socket (45 detik)
+  // serverSelectionTimeoutMS: 5000,
+  // socketTimeoutMS: 45000,
 })
   .then(() => console.log("Berhasil terhubung ke database"))
   .catch((err) => console.error("Gagal terhubung ke database", err));
@@ -36,7 +36,8 @@ mongoose.connect(dbconfig.MONGO_URL, {
 app.use('/assets', express.static(path.join(__dirname, './src/assets')));
 
 app.use(cors({
-  origin: "http://localhost:3000"
+  // origin: "http://localhost:3000"
+  origin: "https://hoffmann-lane.gunawann.com"
 }));
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ extended: true, limit: "20mb" }));

@@ -35,7 +35,7 @@ const login = async (req, res) => {
 
     res.json(requestResponse.suksesLogin(user));
   } catch (error) {
-    res.json(requestResponse.kesalahan);
+    res.json(requestResponse.kesalahan), console.log(error);
   }
 };
 
